@@ -9,6 +9,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   publicExample: examplePublicRouter,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   privateExample: examplePrivateRouter,
 });
 
