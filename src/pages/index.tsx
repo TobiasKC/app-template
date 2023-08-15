@@ -1,10 +1,12 @@
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { SignOutButton, useUser } from "@clerk/nextjs";
 import Head from "next/head";
-import Link from "next/link";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const hello = api.publicExample.hello.useQuery({ text: "from tRPC" });
+  const secretHello = api.privateExample.secretHello.useQuery({
+    text: "Extra Secret Message",
+  });
   const user = useUser();
   const { isSignedIn } = user;
   return (
@@ -16,7 +18,8 @@ export default function Home() {
       </Head>
       <main>
         <h1>Hello from Clerk</h1>
-        {!isSignedIn && <SignInButton />}
+        {hello.data?.greeting}
+        {secretHello.data?.greeting}
         {isSignedIn && <h1>{`Your signed in as ${user.user.fullName}`}</h1>}
         {isSignedIn && <SignOutButton />}
       </main>

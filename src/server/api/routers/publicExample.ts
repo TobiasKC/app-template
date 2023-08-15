@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
-export const exampleRouter = createTRPCRouter({
+export const examplePublicRouter = createTRPCRouter({
   hello: publicProcedure
     .input(z.object({ text: z.string() }))
     .query(({ input }) => {
       return {
-        greeting: `Hello ${input.text}`,
+        greeting: `Hello. The following messages is coming from a public route ${input.text}`,
       };
     }),
   getAll: publicProcedure.query(({ ctx }) => {
